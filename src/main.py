@@ -15,9 +15,6 @@ def main():
 
     grid = Grid(3,5)
     grid.putin(0,0,'O')
-    for i in range(0,3,2):
-        for j in range(1,5):
-            grid.putin(i,j,'P')
 
     running = True
     timeTaken = 0
@@ -27,6 +24,10 @@ def main():
         grid.putin(farmer.x, farmer.y, 'F')
 
         for pig in pigs:
+            for i in range(0, 3, 2):
+                for j in range(1, 5):
+                    grid.putin(i, j, pig.hunger)
+            pig.getHungry()
             if pig.isStarving() and farmer.y == pig.y and farmer.capacity > 0:
                 pig.hunger = 100
 
