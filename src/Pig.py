@@ -1,4 +1,5 @@
 import random
+import time
 
 
 class Pig(object):
@@ -8,11 +9,20 @@ class Pig(object):
         self.x = x
         self.y = y
         self.hungry = False
+        self.counter = 0
+
 
     def isStarving(self):
         if self.hunger < 50:
             self.hungry = True
 
+    def getRandomNumber(self):
+        random.seed(time.perf_counter())
+        number = random.randint(0,5)
+        return number
+
     def getHungry(self):
-        self.hunger = self.hunger - random.randrange(0, 5, 1)
+        self.hunger = self.hunger - self.getRandomNumber()
+        if self.hunger < 20:
+            self.counter += 1
 

@@ -7,8 +7,8 @@ import time
 def main():
     pigs = []
     for i in range(0,8,1):
-        for j in range(1,3,2):
-            for k in range(1,4,1):
+        for j in range(0,3,2):
+            for k in range(1,5,1):
                 pig = Pig(j, k)
                 pigs.append(pig)
     farmer = Farmer(1,0)
@@ -16,28 +16,44 @@ def main():
     grid = Grid(3,5)
     grid.putin(0,0,'O')
 
-    running = True
+    running = int(input("How many loops you want the simulation to take? \n"))
     timeTaken = 0
 
-    while running:
+    print("")
+
+    for z in range(running):
+
+        farmer.targets(pigs)
+        print(str(farmer.targetX) + "," + str(farmer.targetY))
+        farmer.move()
+
+        grid.putin(farmer.lastX, farmer.lastY, '.')
 
         grid.putin(farmer.x, farmer.y, 'F')
 
         for pig in pigs:
-            for i in range(0, 3, 2):
-                for j in range(1, 5):
-                    grid.putin(i, j, pig.hunger)
+            grid.putin(pig.x, pig.y, pig.hunger)
             pig.getHungry()
-            if pig.isStarving() and farmer.y == pig.y and farmer.capacity > 0:
+            if farmer.targetX == pig.x and farmer.targetY == pig.y and farmer.y == pig.y and farmer.capacity > 0:
                 pig.hunger = 100
 
+        print("Food capacity: ", end = '')
+        for i in range(farmer.capacity):
+            print("*", end = '')
+        print("")
         grid.printgrid()
         print("")
         time.sleep(1)
         timeTaken += 1
 
-        if timeTaken == 10:
-            running = False
+        farmer.lastY = farmer.y
+        farmer.lastX = farmer.x
+
+    starveTime = 0
+    for pig in pigs:
+        starveTime += pig.counter
+
+    print("Total time of pigs starving: " + starveTime)
 
 
 

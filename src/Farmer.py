@@ -1,11 +1,13 @@
 class Farmer(object):
     def __init__(self, x, y):
+        self.lastX = x
+        self.lastY = y
         self.x = x
         self.y = y
         self.capacity = 3
         self.state = 0
-        self.targetY= null
-        self.targetX= null
+        self.targetY= 0
+        self.targetX= 0
 
     def getX(self):
         return self.x
@@ -50,9 +52,9 @@ class Farmer(object):
                 self.state = 1
             else:
                 for pig in pigs:
-                    if pig.hungry == True:
-                        self.settargetY(pig.getY)
-                        self.settargetX(pig.getX)
+                    if pig.hunger < 50:
+                        self.settargetY(pig.y)
+                        self.settargetX(pig.x)
                         self.state = 2
                         break
     def move(self):
