@@ -17,10 +17,10 @@ class Grid(object):
         return self.xsize
 
     def putin(self, x, y, c):
-        self.siatka[x][y] = c
+        self.siatka[y][x] = c
 
     def getelement(self, x, y):
-        return self.siatka[x][y]
+        return self.siatka[y][x]
 
     def printgrid(self):
         for i in range(self.ysize):

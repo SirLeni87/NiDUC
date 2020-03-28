@@ -11,21 +11,32 @@ def main():
             for k in range(1,4,1):
                 pig = Pig(j, k)
                 pigs.append(pig)
-    farmer = Farmer(3,0)
+    farmer = Farmer(1,0)
 
     grid = Grid(3,5)
     grid.putin(0,0,'O')
-    grid.putin(0,1,'F')
     for i in range(0,3,2):
         for j in range(1,5):
-            grid.putin(j,i,'P')
+            grid.putin(i,j,'P')
 
     running = True
+    timeTaken = 0
 
     while running:
+
+        grid.putin(farmer.x, farmer.y, 'F')
+
+        for pig in pigs:
+            if pig.isStarving() and farmer.y == pig.y and farmer.capacity > 0:
+                pig.hunger = 100
+
         grid.printgrid()
+        print("")
         time.sleep(1)
-        running = False
+        timeTaken += 1
+
+        if timeTaken == 10:
+            running = False
 
 
 
