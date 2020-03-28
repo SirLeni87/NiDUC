@@ -1,8 +1,9 @@
 class Food():
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, amount):
         self.x = x
         self.y = y
+        self.amount = amount
 
     def getX(self):
         return self.x
@@ -15,3 +16,9 @@ class Food():
 
     def setY(self, y):
         self.y = y
+
+    def getAmount(self):
+        return self.y
+
+    def setAmount(self, amount):
+        self.amount = amount
