@@ -1,4 +1,4 @@
-class Food():
+class Food(object):
 
     def __init__(self, x, y, amount):
         self.x = x
