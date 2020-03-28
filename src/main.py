@@ -6,11 +6,10 @@ import time
 
 def main():
     pigs = []
-    for i in range(0,8,1):
-        for j in range(0,3,2):
-            for k in range(1,5,1):
-                pig = Pig(j, k)
-                pigs.append(pig)
+    for j in range(0,3,2):
+        for k in range(1,5,1):
+            pig = Pig(j, k)
+            pigs.append(pig)
     farmer = Farmer(1,0)
 
     grid = Grid(3,5)
@@ -32,10 +31,13 @@ def main():
         grid.putin(farmer.x, farmer.y, 'F')
 
         for pig in pigs:
-            grid.putin(pig.x, pig.y, pig.hunger)
             pig.getHungry()
+            pig.isStarving()
+            grid.putin(pig.x, pig.y, pig.hunger)
             if farmer.targetX == pig.x and farmer.targetY == pig.y and farmer.y == pig.y and farmer.capacity > 0:
                 pig.hunger = 100
+                pig.hungry = False
+                farmer.feed()
 
         print("Food capacity: ", end = '')
         for i in range(farmer.capacity):
@@ -53,7 +55,7 @@ def main():
     for pig in pigs:
         starveTime += pig.counter
 
-    print("Total time of pigs starving: " + starveTime)
+    print("Total time of pigs starving: " + str(starveTime) + " time units.")
 
 
 

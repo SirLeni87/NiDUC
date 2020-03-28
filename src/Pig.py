@@ -22,7 +22,8 @@ class Pig(object):
         return number
 
     def getHungry(self):
-        self.hunger = self.hunger - self.getRandomNumber()
+        if(self.hunger > 0):
+            self.hunger = self.hunger - self.getRandomNumber()
         if self.hunger < 20:
             self.counter += 1
 

@@ -27,18 +27,6 @@ class Farmer(object):
     def setCapacity(self, capacity):
             self.capacity = capacity
 
-    def gettargetX(self):
-        return self.targetX
-
-    def settargetX(self, x):
-        self.targetX = x
-
-    def gettargetY(self):
-        return self.targetY
-
-    def settargetY(self, y):
-        self.targetY = y
-
     def pickFood(self):
         self.capacity = 3 #later add parametr with amount of food to pick up
 
@@ -47,14 +35,14 @@ class Farmer(object):
     def targets(self, pigs):
         if self.state == 0:
             if self.capacity == 0:
-                self.settargetX(0)
-                self.settargetY(0)
+                self.targetX = 0
+                self.targetY = 0
                 self.state = 1
             else:
                 for pig in pigs:
-                    if pig.hunger < 50:
-                        self.settargetY(pig.y)
-                        self.settargetX(pig.x)
+                    if pig.hungry:
+                        self.targetY = pig.y
+                        self.targetX = pig.x
                         self.state = 2
                         break
     def move(self):
@@ -69,12 +57,10 @@ class Farmer(object):
             elif self.y > self.targetY:
                 self.y -= 1
                 if self.y == self.targetY:
-                    self.feed()
                     self.state = 0
             else:
                 self.y += 1
                 if self.y == self.targetY:
-                    self.feed()
                     self.state = 0
 
 
