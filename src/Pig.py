@@ -27,7 +27,7 @@ class Pig(object):
         if(self.hunger > 0):
             self.hunger = self.hunger - self.getRandomNumber()
         if self.hungry == False:
-            self.isStarving()
+            self.isHungry()
             if self.hungry == True:
                 self.timeshungry +=1
 

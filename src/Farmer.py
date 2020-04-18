@@ -32,7 +32,7 @@ class Farmer(object):
 
     def feed(self):
         self.capacity = self.capacity-1
-    def targets(self, pigs):
+    def targets(self, pigs, strategy):
         if self.state == 0:
             if self.capacity == 0:
                 self.targetX = 0

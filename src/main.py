@@ -15,6 +15,12 @@ def main():
     grid = Grid(3,5)
     grid.putin(0,0,'O')
 
+    print("Available farmer's strategies are: \n"
+          "1 - Farmer prioritizes pigs that are the most hungry \n"
+          "2 - Farmer prioritizes hungry pigs that are closer to him \n")
+
+    strategy = int(input("What is your prefered farmer strategy? \n"))
+
     running = int(input("How many loops you want the simulation to take? \n"))
     timeTaken = 0
 
@@ -22,7 +28,7 @@ def main():
 
     for z in range(running):
 
-        farmer.targets(pigs)
+        farmer.targets(pigs, strategy)
         print(str(farmer.targetX) + "," + str(farmer.targetY))
         farmer.move()
 
