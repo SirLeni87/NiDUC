@@ -39,12 +39,15 @@ class Farmer(object):
                 self.targetY = 0
                 self.state = 1
             else:
+                minimum = 51
                 for pig in pigs:
-                    if pig.hungry:
+
+                    if pig.hungry and pig.hunger < minimum:
+                        minimum = pig.hunger
                         self.targetY = pig.y
                         self.targetX = pig.x
                         self.state = 2
-                        break
+
     def move(self):
         if self.state == 1:
             self.y -= 1

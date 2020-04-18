@@ -54,6 +54,7 @@ def main():
     starveTime = 0
     for pig in pigs:
         starveTime += pig.counter
+        print("pig at [" + str(pig.x) +"," + str(pig.y)+"] was starving for " + str(pig.counter) + " time units.")
 
     print("Total time of pigs starving: " + str(starveTime) + " time units.")
 
