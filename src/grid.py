@@ -5,7 +5,6 @@ class Grid(object):
         self.siatka = []
         for i in range(y):
             self.siatka.append([])
-        i = 0
         for i in range(x):
             for j in range(y):
                 self.siatka[j].append('.')

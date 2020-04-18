@@ -12,7 +12,7 @@ class Pig(object):
         self.counter = 0
 
 
-    def isStarving(self):
+    def isHungry(self):
         if self.hunger < 50:
             self.hungry = True
 
