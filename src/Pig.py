@@ -10,6 +10,8 @@ class Pig(object):
         self.y = y
         self.hungry = False
         self.counter = 0
+        self.timehungry = 0
+        self.timeshungry = 0
 
 
     def isHungry(self):
@@ -24,6 +26,14 @@ class Pig(object):
     def getHungry(self):
         if(self.hunger > 0):
             self.hunger = self.hunger - self.getRandomNumber()
+        if self.hungry == False:
+            self.isStarving()
+            if self.hungry == True:
+                self.timeshungry +=1
+
+        if self.hunger < 50:
+            self.timehungry += 1
+
         if self.hunger < 20:
             self.counter += 1
 
