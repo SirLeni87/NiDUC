@@ -32,7 +32,7 @@ def main():
 
         for pig in pigs:
             pig.getHungry()
-            pig.isStarving()
+            pig.isHungry()
             grid.putin(pig.x, pig.y, pig.hunger)
             if farmer.targetX == pig.x and farmer.targetY == pig.y and farmer.y == pig.y and farmer.capacity > 0:
                 pig.hunger = 100
