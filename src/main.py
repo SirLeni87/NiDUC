@@ -51,7 +51,7 @@ def main():
         print("")
         grid.printgrid()
         print("")
-        time.sleep(1)
+    
         timeTaken += 1
 
         farmer.lastY = farmer.y
