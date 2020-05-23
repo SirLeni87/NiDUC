@@ -1,4 +1,5 @@
 from builtins import print
+import math
 
 from src.Pig import Pig
 from src.Farmer import Farmer
@@ -9,10 +10,12 @@ def main():
     pigs = []
     averageStarveTimeForOne = []
     averageWaitTimeForOne = []
+    savedTime = []
 
     for i in range(8):
         averageStarveTimeForOne.append(0)
         averageWaitTimeForOne.append(0)
+        savedTime.append([])
 
     # for j in range(0,3,2):
     #     for k in range(1,5,1):
@@ -88,6 +91,7 @@ def main():
 
         index = 0
         for pig in pigs:
+            savedTime[index].append(pig.counter)
             starveTime += pig.counter
             averageStarveTimeForOne[index] += pig.counter
             averageWaitTimeForOne[index] += (pig.timehungry/pig.timeshungry)
@@ -95,7 +99,6 @@ def main():
             saveFile.write("pig at [" + str(pig.x) + "," + str(pig.y)+"] was starving for " + str(pig.counter) + " time units and waiting for average " + str("%.2f" % (pig.timehungry/pig.timeshungry)) + "\n")
 
         saveFile.write("\n" + "Total time of pigs starving: " + str(starveTime) + " time units. \n\n\n")
-        starveTimeTotal += starveTime
 
         pigs.clear()
         for pig in pigs:
@@ -103,12 +106,33 @@ def main():
         del farmer
         del grid
 
+    for i in range(len(averageStarveTimeForOne)):
+        starveTimeTotal += averageStarveTimeForOne[i]
+    starveTimeTotal = starveTimeTotal/800
+
+    resultTab = []
+    for i in range(len(averageStarveTimeForOne)):
+        result = 0
+        for j in range(100):
+            result += pow((savedTime[i][j] - (averageStarveTimeForOne[i]/100)), 2)
+        result = math.sqrt(result/100)
+        resultTab.append(result)
+
+    for i in range(8):
+        for j in range(100):
+            print("[" + str(i) + "][" + str(j) + "]: " + str("%.2f" % savedTime[i][j]) + "\n")
+        print("\n")
+
     saveFile.write("\n\n\n============================== SUMMARY ==============================\n")
-    saveFile.write("Simulation's average total starve time: " + str(starveTimeTotal/100))
+    saveFile.write("Total average starve time: " + str(starveTimeTotal))
 
     for i in range(len(averageStarveTimeForOne)):
         saveFile.write("\nPig[" + str(i) + "] was on average:   starving for: " + str("%.2f" % (averageStarveTimeForOne[i]/100)) + "    hungry for: " + str("%.2f" % (averageWaitTimeForOne[i]/100)))
 
+    saveFile.write("\n\nStandard deviation for starve time:")
+
+    for i in range(len(resultTab)):
+        saveFile.write("\nPig[" + str(i) + "]: " + str(resultTab[i]))
 
     saveFile.close()
 
