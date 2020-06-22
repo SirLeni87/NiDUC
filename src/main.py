@@ -17,15 +17,6 @@ def main():
         averageWaitTimeForOne.append(0)
         savedTime.append([])
 
-    # for j in range(0,3,2):
-    #     for k in range(1,5,1):
-    #         pig = Pig(j, k)
-    #         pigs.append(pig)
-    # farmer = Farmer(1,0)
-
-    # grid = Grid(3,5)
-    # grid.putin(0,0,'O')
-
     print("Available farmer's strategies are: \n"
           "1 - Farmer prioritizes pigs that are the most hungry \n"
           "2 - Farmer prioritizes hungry pigs that are closer to him \n")
@@ -38,23 +29,20 @@ def main():
     saveFile = open(fileName, "w+")
 
     print("")
-    # timeTaken = 0
     starveTimeTotal = 0
 
     for a in range(100):
         for j in range(0, 3, 2):
-            for k in range(1, 5, 1):
+            for k in range(1, 11, 1):
                 pig = Pig(j, k)
                 pigs.append(pig)
         farmer = Farmer(1, 0)
 
-        grid = Grid(3, 5)
-        # grid.putin(0, 0, 'O')
+        grid = Grid(3, 11)
 
         timeTaken = 0
         for z in range(running):
             farmer.targets(pigs, strategy)
-            # print(str(farmer.targetX) + "," + str(farmer.targetY))
             farmer.move()
 
             grid.putin(farmer.lastX, farmer.lastY, '.')
@@ -69,25 +57,12 @@ def main():
                     pig.hunger = 100
                     pig.hungry = False
                     farmer.feed()
-
-            # print("Food capacity: ", end = '')
-            # for i in range(farmer.capacity):
-                # print("*", end = '')
-            # print("")
-            # grid.printgrid()
-            # print("")
-            # time.sleep(1)
             timeTaken += 1
 
             farmer.lastY = farmer.y
             farmer.lastX = farmer.x
 
         starveTime = 0
-        # for pig in pigs:
-        #     starveTime += pig.counter
-        #     print("pig at [" + str(pig.x) + "," + str(pig.y)+"] was starving for " + str(pig.counter) + " time units and waiting for average " + str(pig.timehungry/pig.timeshungry))
-
-        # print("Total time of pigs starving: " + str(starveTime) + " time units.")
 
         index = 0
         for pig in pigs:
@@ -96,9 +71,6 @@ def main():
             averageStarveTimeForOne[index] += pig.counter
             averageWaitTimeForOne[index] += (pig.timehungry/pig.timeshungry)
             index += 1
-            saveFile.write("pig at [" + str(pig.x) + "," + str(pig.y)+"] was starving for " + str(pig.counter) + " time units and waiting for average " + str("%.2f" % (pig.timehungry/pig.timeshungry)) + "\n")
-
-        saveFile.write("\n" + "Total time of pigs starving: " + str(starveTime) + " time units. \n\n\n")
 
         pigs.clear()
         for pig in pigs:
@@ -118,10 +90,18 @@ def main():
         result = math.sqrt(result/100)
         resultTab.append(result)
 
+#----------------------------------------- MODEL --------------------------------------------
+
+
+
+    saveFile.write("\n\n\n============================== TO_EXCEL ==============================\n")
     for i in range(8):
+        saveFile.write("Pig " + str("%d\n" % i))
         for j in range(100):
-            print("[" + str(i) + "][" + str(j) + "]: " + str("%.2f" % savedTime[i][j]) + "\n")
-        print("\n")
+            saveFile.write(str("%.2f\n" % savedTime[i][j]))
+        saveFile.write("\n")
+
+    saveFile.write("\n\n\n============================== TO_EXCEL ==============================\n")
 
     saveFile.write("\n\n\n============================== SUMMARY ==============================\n")
     saveFile.write("Total average starve time: " + str(starveTimeTotal))

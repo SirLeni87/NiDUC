@@ -26,6 +26,8 @@ class Pig(object):
     def getHungry(self):
         if(self.hunger > 0):
             self.hunger = self.hunger - self.getRandomNumber()
+            if(self.hunger < 0):
+                self.hunger = 0
         if self.hungry == False:
             self.isHungry()
             if self.hungry == True:
